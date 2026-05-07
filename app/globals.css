@@ -300,3 +300,22 @@ body {
   animation: planetPlaceholder 18s linear infinite;
 }
 
+
+
+
+
+
+html,
+body {
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  overscroll-behavior-y: auto;
+}
+
+/* Permite que en celular el gesto vertical sirva para scrollear */
+canvas {
+  touch-action: pan-y !important;
+}

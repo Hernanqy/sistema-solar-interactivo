@@ -14,7 +14,6 @@ import NeptuneScene from "@/components/NeptuneScene";
 
 import SpaceBackground from "@/components/SpaceBackground";
 import MissionIntro from "@/components/MissionIntro";
-import PlanetFullscreen from "@/components/PlanetFullscreen";
 
 type Phase = "intro" | "observe" | "info" | "quiz" | "result" | "final";
 
@@ -463,7 +462,6 @@ export default function Page() {
   const [phase, setPhase] = useState<Phase>("intro");
   const [astroIndex, setAstroIndex] = useState(0);
   const [answer, setAnswer] = useState<string | null>(null);
-  const [isPlanetFullscreen, setIsPlanetFullscreen] = useState(false);
 
   const astro = ASTROS[astroIndex];
   const isLastAstro = astroIndex === ASTROS.length - 1;
@@ -471,13 +469,11 @@ export default function Page() {
 
   function goToPhase(nextPhase: Phase) {
     setAnswer(null);
-    setIsPlanetFullscreen(false);
     setPhase(nextPhase);
   }
 
   function goToNextAstro() {
     setAnswer(null);
-    setIsPlanetFullscreen(false);
 
     if (isLastAstro) {
       setPhase("final");
@@ -490,7 +486,6 @@ export default function Page() {
 
   function restartMission() {
     setAnswer(null);
-    setIsPlanetFullscreen(false);
     setAstroIndex(0);
     setPhase("intro");
   }
@@ -501,31 +496,31 @@ export default function Page() {
 
   if (phase === "final") {
     return (
-      <main className="relative min-h-screen overflow-y-auto bg-black text-white lg:h-screen lg:overflow-hidden">
+      <main className="relative h-screen overflow-hidden bg-black text-white">
         <SpaceBackground />
 
-        <section className="relative z-10 flex min-h-screen items-center justify-center px-4 py-6 text-center sm:px-6 lg:h-screen">
-          <div className="max-w-4xl rounded-[32px] border border-white/15 bg-white/10 p-6 shadow-2xl backdrop-blur-md sm:p-8 lg:p-10">
-            <div className="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-cyan-300/20 text-5xl shadow-lg shadow-cyan-300/20 sm:h-24 sm:w-24 sm:text-6xl">
+        <section className="relative z-10 flex h-screen items-center justify-center px-6 text-center">
+          <div className="max-w-4xl rounded-[36px] border border-white/15 bg-white/10 p-10 shadow-2xl backdrop-blur-md">
+            <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-cyan-300/20 text-6xl shadow-lg shadow-cyan-300/20">
               🏅
             </div>
 
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.35em] text-cyan-300 sm:text-sm">
+            <p className="mb-4 text-sm font-bold uppercase tracking-[0.35em] text-cyan-300">
               Misión completada
             </p>
 
-            <h1 className="mb-5 text-4xl font-black sm:text-5xl lg:text-7xl">
+            <h1 className="mb-6 text-5xl font-black md:text-7xl">
               ¡Exploradores del Sistema Solar!
             </h1>
 
-            <p className="mx-auto mb-7 max-w-2xl text-lg text-slate-200 sm:text-xl">
+            <p className="mx-auto mb-8 max-w-2xl text-xl text-slate-200">
               Visitamos el Sol y los principales planetas. Ahora el equipo puede
               conversar: ¿cuál fue el astro más sorprendente?
             </p>
 
             <button
               onClick={restartMission}
-              className="rounded-2xl bg-cyan-300 px-7 py-3 text-base font-black text-black transition hover:scale-105 hover:bg-cyan-200 sm:px-8 sm:py-4 sm:text-lg"
+              className="rounded-2xl bg-cyan-300 px-8 py-4 text-lg font-black text-black transition hover:scale-105 hover:bg-cyan-200"
             >
               🔁 Reiniciar misión
             </button>
@@ -536,17 +531,10 @@ export default function Page() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-y-auto bg-black text-white lg:h-screen lg:overflow-hidden">
+    <main className="relative h-screen overflow-hidden bg-black text-white">
       <SpaceBackground />
 
-      {isPlanetFullscreen && (
-        <PlanetFullscreen
-          astro={astro}
-          onClose={() => setIsPlanetFullscreen(false)}
-        />
-      )}
-
-      <section className="relative z-10 mx-auto grid min-h-screen max-w-7xl items-start gap-6 px-4 py-5 sm:px-6 lg:h-screen lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-8 lg:px-8">
+      <section className="relative z-10 mx-auto grid h-screen max-w-7xl items-center gap-8 px-8 py-5 lg:grid-cols-[0.95fr_1.05fr]">
         <div className="min-h-0">
           <ProgressBar current={astroIndex} />
 
@@ -562,7 +550,7 @@ export default function Page() {
             </p>
           </div>
 
-          <h1 className="mb-4 text-4xl font-black sm:text-5xl md:text-6xl lg:text-7xl">
+          <h1 className="mb-4 text-5xl font-black md:text-7xl">
             {astro.name}
           </h1>
 
@@ -574,9 +562,7 @@ export default function Page() {
                 text={astro.guideText}
               />
 
-              <p className="mb-5 text-lg text-slate-200 sm:text-xl">
-                {astro.introText}
-              </p>
+              <p className="mb-5 text-xl text-slate-200">{astro.introText}</p>
 
               <InfoStrip items={astro.strip} />
 
@@ -651,32 +637,14 @@ export default function Page() {
           )}
         </div>
 
-        <div className="relative min-h-0 pb-6 lg:pb-0">
+        <div className="relative min-h-0">
           <div className="mb-3 rounded-3xl border border-white/10 bg-white/10 p-3 text-center backdrop-blur">
             <p className="text-xs font-bold uppercase tracking-[0.25em] text-cyan-200">
               🔭 Ventana de observación
             </p>
-
-            <p className="mt-1 text-xs text-slate-400">
-              Tocá el planeta para ampliarlo
-            </p>
           </div>
 
-          <div
-            role="button"
-            tabIndex={0}
-            onClick={() => setIsPlanetFullscreen(true)}
-            onKeyDown={(event) => {
-              if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
-                setIsPlanetFullscreen(true);
-              }
-            }}
-            className="cursor-zoom-in rounded-[32px] outline-none transition hover:scale-[1.01] focus-visible:ring-2 focus-visible:ring-cyan-300"
-            aria-label={`Ampliar ${astro.name}`}
-          >
-            <PlanetVisual astro={astro} />
-          </div>
+          <PlanetVisual astro={astro} />
         </div>
       </section>
     </main>
@@ -704,9 +672,9 @@ function ProgressBar({ current }: { current: number }) {
         🚀 Ruta de la misión
       </p>
 
-      <div className="flex items-center gap-2 overflow-x-auto pb-1 lg:overflow-hidden">
+      <div className="flex items-center gap-2 overflow-hidden">
         {ASTROS.map((planet, index) => (
-          <div key={planet.id} className="flex shrink-0 items-center gap-2">
+          <div key={planet.id} className="flex items-center gap-2">
             <div
               className={`flex h-11 w-11 shrink-0 flex-col items-center justify-center rounded-2xl border text-lg transition ${
                 index === current
@@ -722,7 +690,7 @@ function ProgressBar({ current }: { current: number }) {
 
             {index < ASTROS.length - 1 && (
               <div
-                className={`h-1 w-4 shrink-0 rounded-full ${
+                className={`h-1 w-4 rounded-full ${
                   index < current ? "bg-green-300" : "bg-white/15"
                 }`}
               />
@@ -810,7 +778,7 @@ function LearningCard({
       </div>
 
       {paragraphs.map((paragraph) => (
-        <p key={paragraph} className="text-base leading-snug text-slate-200 sm:text-lg">
+        <p key={paragraph} className="text-lg leading-snug text-slate-200">
           {paragraph}
         </p>
       ))}
@@ -819,7 +787,7 @@ function LearningCard({
         {facts.map((fact) => (
           <div
             key={fact}
-            className="rounded-2xl border border-white/10 bg-black/25 p-3 text-sm font-bold text-slate-100 sm:text-base"
+            className="rounded-2xl border border-white/10 bg-black/25 p-3 text-base font-bold text-slate-100"
           >
             {fact}
           </div>
@@ -864,16 +832,14 @@ function QuizCard({
         </div>
       </div>
 
-      <p className="mb-5 text-lg font-bold text-slate-100 sm:text-xl">
-        {question}
-      </p>
+      <p className="mb-5 text-xl font-bold text-slate-100">{question}</p>
 
       <div className="grid gap-3">
         {options.map((option) => (
           <button
             key={option}
             onClick={() => onAnswer(option)}
-            className="rounded-2xl border border-white/15 bg-white/10 p-4 text-left text-base font-bold transition hover:scale-[1.02] hover:bg-white/20 sm:text-lg"
+            className="rounded-2xl border border-white/15 bg-white/10 p-4 text-left text-lg font-bold transition hover:scale-[1.02] hover:bg-white/20"
           >
             {option}
           </button>
@@ -925,19 +891,17 @@ function ResultCard({
         </div>
       </div>
 
-      <p className="mb-3 text-base text-slate-200 sm:text-lg">
+      <p className="mb-3 text-lg text-slate-200">
         Tu respuesta: <strong>{answer}</strong>
       </p>
 
       {!isCorrect && (
-        <p className="mb-3 text-base text-slate-200 sm:text-lg">
+        <p className="mb-3 text-lg text-slate-200">
           Respuesta correcta: <strong>{correctAnswer}</strong>
         </p>
       )}
 
-      <p className="text-base leading-snug text-slate-200 sm:text-lg">
-        {explanation}
-      </p>
+      <p className="text-lg leading-snug text-slate-200">{explanation}</p>
     </div>
   );
 }
