@@ -24,3 +24,279 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.6);
+  }
+}
+
+@keyframes brightTwinkle {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+    box-shadow: 0 0 8px rgba(165, 243, 252, 0.35);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.9);
+    box-shadow: 0 0 18px rgba(165, 243, 252, 0.9);
+  }
+}
+
+@keyframes floatNebulaSlow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(28px, -22px, 0) scale(1.08);
+  }
+}
+
+@keyframes floatNebulaMedium {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(-32px, 24px, 0) scale(1.1);
+  }
+}
+
+@keyframes floatNebulaFast {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(18px, 34px, 0) scale(1.06);
+  }
+}
+
+@keyframes meteor {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) rotate(215deg) scale(0.8);
+  }
+
+  7% {
+    opacity: 1;
+  }
+
+  28% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(-420px, 420px, 0) rotate(215deg) scale(1);
+  }
+}
+
+@keyframes particleFloat {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.7);
+  }
+
+  20% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: translate3d(18px, -45px, 0) scale(1.1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(-22px, -90px, 0) scale(0.8);
+  }
+}
+
+@keyframes distantPlanet {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate3d(-16px, 10px, 0) rotate(3deg);
+  }
+}
+
+.space-star {
+  animation-name: twinkle;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.space-bright-star {
+  animation-name: brightTwinkle;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.space-nebula-slow {
+  animation: floatNebulaSlow 18s ease-in-out infinite;
+}
+
+.space-nebula-medium {
+  animation: floatNebulaMedium 14s ease-in-out infinite;
+}
+
+.space-nebula-fast {
+  animation: floatNebulaFast 11s ease-in-out infinite;
+}
+
+.space-meteor {
+  width: 190px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 1),
+    rgba(125, 211, 252, 0.35)
+  );
+  box-shadow:
+    0 0 10px rgba(255, 255, 255, 0.9),
+    0 0 24px rgba(125, 211, 252, 0.45),
+    0 0 42px rgba(59, 130, 246, 0.25);
+  transform: rotate(215deg);
+  opacity: 0;
+  animation-name: meteor;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.space-particle {
+  opacity: 0;
+  animation-name: particleFloat;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.space-distant-planet {
+  animation: distantPlanet 16s ease-in-out infinite;
+}
+
+
+
+
+
+
+
+
+@keyframes robotFloat {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(-1deg);
+  }
+
+  50% {
+    transform: translateY(-18px) rotate(1deg);
+  }
+}
+
+@keyframes robotGlow {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.9;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes robotEye {
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  95% {
+    transform: scaleY(0.12);
+  }
+}
+
+@keyframes robotMouth {
+  0%,
+  100% {
+    width: 56px;
+  }
+
+  50% {
+    width: 82px;
+  }
+}
+
+@keyframes launchProgress {
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+.robot-float {
+  animation: robotFloat 4s ease-in-out infinite;
+}
+
+.robot-glow {
+  animation: robotGlow 3s ease-in-out infinite;
+}
+
+.robot-eye {
+  animation: robotEye 4.5s ease-in-out infinite;
+}
+
+.robot-mouth {
+  animation: robotMouth 1.8s ease-in-out infinite;
+}
+
+.launch-progress {
+  animation: launchProgress 3.6s linear forwards;
+}
+
+
+
+
+
+
+
+
+@keyframes planetPlaceholder {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(180deg) scale(1.04);
+  }
+}
+
+.planet-placeholder {
+  animation: planetPlaceholder 18s linear infinite;
+}
+
